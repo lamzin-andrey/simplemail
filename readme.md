@@ -206,7 +206,7 @@ Run example script app.php (see [Create gmail account section](#create-gmail-acc
 
 ### Настройте почтовый ящик в ISP Manager на хостинг-провайдере
 
-Создаqnt почтовый ящик с помощью интерфейса ISP Manager.
+Создайте почтовый ящик с помощью интерфейса ISP Manager.
 Убедитесь, что вы можете отправить письмо с него, используя RoundCude или другой интерфейс.
 
 ### Пример кода
