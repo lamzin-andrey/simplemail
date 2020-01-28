@@ -16,6 +16,7 @@ class SimpleMail
 	private  $toSection            = '';
 	private  $boundary             = null;  
 	private  $encodedFiles         = [];
+	private $_fromSecurityHeader   = ''; //Use for header '-fname@host.com'
 	/*
 	 * @param string $charset email encoding. Recomended UTF-8
 	 * Принимает кодировку письма. По умолчанию стоит UTF-8.
@@ -265,8 +266,8 @@ class SimpleMail
 	
 	private function _setFrom($addresses)
 	{
-		$this->parseMailsArray("from", $addresses);		
-	}	
+		$this->parseMailsArray("from", $addresses);
+	}
 	
 	private function parseMailsArray($typeSection, $addresses)
 	{
@@ -276,7 +277,12 @@ class SimpleMail
 		{
 			if ($this->checkMail($key))
 			{
-				if ($typeSection == "from") $r2[] = "=?$this->encoding?Q?".str_replace("+", " ", str_replace("%", "=",urlencode($item)))."?= <$key>";				
+				if ($typeSection == "from") {
+					if (!$this->_fromSecurityHeader) {
+						$this->_fromSecurityHeader = '-f' . $key;
+					}
+					$r2[] = "=?$this->encoding?Q?".str_replace("+", " ", str_replace("%", "=",urlencode($item)))."?= <$key>";				
+				}
 				else if ($typeSection == "to") $r2[] = "=?$this->encoding?Q?".str_replace("+", " ", str_replace("%", "=",urlencode($item)))."?=\n <$key>";				
 			}
 			else if ($this->checkMail($item)) $r1[] = $item; 
@@ -311,7 +317,7 @@ class SimpleMail
 		return mail("",
 				"=?$this->encoding?B?" . base64_encode($this->subject) . "?=",
 				$bodyHeader ."\r\n\r\n". chunk_split(base64_encode($this->body)).$files,
-				$header);
+				$header, $this->_fromSecurityHeader);
 		/*
 		 * mail(
 				$address->Email,
