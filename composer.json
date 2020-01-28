@@ -1,6 +1,6 @@
 {
     "name": "landlib/simplemail",
-    "version": "1.2.1",
+    "version": "1.2.2",
     "keywords": ["Send email with PHP mail function and attachment.", "Reliable mail sending with gmail.com or your mail server"],
     "homepage": "https://github.com/lamzin-andrey/simplemail",
     "description": "Reliable and comfortable mail sending with PHP mail() use gmail.com. Attachment support. Надёжная и удобная отправка писем with gmail.com. Вложения поддерживаются.",
